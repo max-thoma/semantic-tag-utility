@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "semantic-tag-utility"
+version = "0.1.0"
+description = ""
+authors = ["Max Thoma"]
+readme = "README.md"
+license = "BSD-3-Clause"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+rdflib = "^7.0.0"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

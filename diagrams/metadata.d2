@@ -1,0 +1,20 @@
+MetadataUsage: {
+  shape: class
+  itemDefinition: "<uri>"
+  annotatedElement: "<uri>"
+}
+
+MetadataDefinition: {
+  shape: class
+  declaredName: "uri-string"
+}
+
+PartUsage: {
+  shape: class
+  declaredName: "string"
+  qualifiedName: "string"
+}
+
+MetadataUsage -> MetadataDefinition: itemDefinition
+MetadataUsage -> PartUsage: annotatedElement
+

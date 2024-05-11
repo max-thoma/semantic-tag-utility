@@ -1,0 +1,85 @@
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+      - name: Download latest SysML v2 release
+        run: |
+          wget -O sysml.zip "https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation/releases/download/2024-04.1/jupyter-sysml-kernel-0.41.1.zip"
+          unzip sysml.zip -d sysml
+      - name: Download latest Metadata Model
+        uses: actions/checkout@v4
+        with:
+          repository: Systems-Modeling/SysML-v2-API-Services
+          path: SysML-v2-API-Services
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+      - name: Install project
+        run: | 
+          poetry install
+      - name: Generate Tagging Library
+        run: |
+          . model/.env
+          echo "NS: $STU_ONTOLOGY_NS"
+          poetry run python semantic_tag_utility/semantic-tag-utility.py gen-library \
+           --input-ontology-ns "$STU_ONTOLOGY_NS" \
+           --prefix-ontology "$STU_PREFIX_ONTOLOGY" \
+           --prefix-library "$STU_PREFIX_LIBRARY" \
+           --package-name "$STU_PACKAGE_NAME" \
+           --output "model/$STU_PACKAGE_NAME".sysml
+      - name: Generate AST
+        run: |
+          . model/.env
+          javac \
+            -classpath sysml/sysml/jupyter-sysml-kernel-0.41.1-all.jar \
+            semantic_tag_utility/ci/org/stu/ast/ASTGenerator.java
+          java -Dfile.encoding=UTF-8 \
+            -classpath semantic_tag_utility/ci/:sysml/sysml/jupyter-sysml-kernel-0.41.1-all.jar \
+            org.stu.ast.ASTGenerator \
+            '/home/runner/work/semantic-tag-utility/semantic-tag-utility/sysml/sysml/sysml.library/' \
+            model/"$STU_PACKAGE_NAME".sysml \
+            model/"$STU_MODEL_NAME".sysml \
+            "$STU_MODEL_NAME" \
+            model/"$STU_MODEL_NAME".json
+          cat model/"$STU_MODEL_NAME".json
+      - name: Generate JSON-LD
+        run: |
+          . model/.env
+          poetry run python semantic_tag_utility/semantic-tag-utility.py gen-jsonld \
+          --input-ast-file model/"$STU_MODEL_NAME".json \
+          --output-jsonld model/"$STU_MODEL_NAME".jsonld \
+          --base-uri "$STU_BASE_URI" \
+          --metadata-dir "SysML-v2-API-Services/public/jsonld/metamodel"
+      - name: Transform RDF Graph
+        run: |
+          . model/.env
+          poetry run python semantic_tag_utility/semantic-tag-utility.py transform-rdf \
+          --input-model model/"$STU_MODEL_NAME".jsonld \
+          --output-rdf model/"$STU_MODEL_NAME".ttl \
+          --base-uri "$STU_BASE_URI" \
+          --input-ontology-ns "$STU_ONTOLOGY_NS" \
+          --prefix-ontology "$STU_PREFIX_ONTOLOGY" \
+          --prefix-library "$STU_PREFIX_LIBRARY"
+        
+      - name: Upload Tags Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tag-Package
+          path: "model/"
+      - name: Display structure of downloaded files
+        run: ls -R

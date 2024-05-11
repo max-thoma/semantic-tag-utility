@@ -1,0 +1,33 @@
+ConnectionUsage: {
+  shape: class
+  declaredName: "uri-string"
+  source: "<uri>"
+  target: "<uri>"
+}
+
+"PartUsage [Source]": {
+  shape: class
+  declaredName: "string"
+  qualifiedName: "string"
+}
+
+"AttributeUsage [Target]": {
+  shape: class
+  declaredName: "string"
+  qualifiedName: "string"
+}
+
+Feature: {
+  shape: class
+}
+
+FeatureChaining: {
+  shape: class
+  featureChained: "<uri>"
+  target: "<uri>"
+}
+
+ConnectionUsage -> "PartUsage [Source]": source
+ConnectionUsage -> Feature: target
+FeatureChaining -> Feature: featureChained
+FeatureChaining -> "AttributeUsage [Target]": target
