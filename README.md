@@ -241,4 +241,4 @@ This project uses the following Third Party Libraries:
 For the CI/CD Integration:
 
 - The Metamodel form the [SysML v2 API and Services](https://github.com/Systems-Modeling/SysML-v2-API-Services), licensed under [LGPL](https://github.com/Systems-Modeling/SysML-v2-API-Services/blob/master/LICENSE).
-- The Jupyter Kernel from the [OMG Systems Modeling Language™ (SysML®) v2 Release](https://github.com/Systems-Modeling/SysML-v2-Release), licensed under [LGPL](https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/LICENSE).
+- The Jupyter Kernel from the [SysML v2 Pilot Implementation Protoyping](https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation), licensed under [LGPL](https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation/blob/master/LICENSE).
