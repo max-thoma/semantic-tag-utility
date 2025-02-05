@@ -106,7 +106,7 @@ Then, the `TutorialSensor` can be tagged with `SOSA_Sensor`.
 
 ```sysml
 package Tutorial {
-    import SOSA::*;
+    public import SOSA::*;
 
     part def TutorialSystem;
     part TutorialSensor: TutorialSystem {@SOSA_Sensor{}}

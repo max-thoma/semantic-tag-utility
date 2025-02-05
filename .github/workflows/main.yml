@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
       - name: Download latest SysML v2 release
         run: |
-          wget -O sysml.zip "https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation/releases/download/2024-04.1/jupyter-sysml-kernel-0.41.1.zip"
+          wget -O sysml.zip "https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation/releases/download/2024-12/jupyter-sysml-kernel-0.47.0.zip"
           unzip sysml.zip -d sysml
       - name: Download latest Metadata Model
         uses: actions/checkout@v4
@@ -46,10 +46,10 @@ jobs:
         run: |
           . model/.env
           javac \
-            -classpath sysml/sysml/jupyter-sysml-kernel-0.41.1-all.jar \
+            -classpath sysml/sysml/jupyter-sysml-kernel-0.47.0-all.jar \
             semantic_tag_utility/ci/org/stu/ast/ASTGenerator.java
           java -Dfile.encoding=UTF-8 \
-            -classpath semantic_tag_utility/ci/:sysml/sysml/jupyter-sysml-kernel-0.41.1-all.jar \
+            -classpath semantic_tag_utility/ci/:sysml/sysml/jupyter-sysml-kernel-0.47.0-all.jar \
             org.stu.ast.ASTGenerator \
             '/home/runner/work/semantic-tag-utility/semantic-tag-utility/sysml/sysml/sysml.library/' \
             model/"$STU_PACKAGE_NAME".sysml \

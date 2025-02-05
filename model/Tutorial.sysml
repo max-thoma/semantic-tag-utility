@@ -1,6 +1,6 @@
 package Tutorial {
-    import ScalarValues::*;
-    import SOSA::*;
+    public import ScalarValues::*;
+    public import SOSA::*;
     
     part def TutorialSystem;        
     part SensorSystem: TutorialSystem {
