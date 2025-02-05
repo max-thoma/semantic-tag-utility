@@ -242,3 +242,20 @@ For the CI/CD Integration:
 
 - The Metamodel form the [SysML v2 API and Services](https://github.com/Systems-Modeling/SysML-v2-API-Services), licensed under [LGPL](https://github.com/Systems-Modeling/SysML-v2-API-Services/blob/master/LICENSE).
 - The Jupyter Kernel from the [SysML v2 Pilot Implementation Protoyping](https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation), licensed under [LGPL](https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation/blob/master/LICENSE).
+
+---
+
+If you want to cite this project please use the following BibTeX entry:
+
+```bibtex
+@INPROCEEDINGS{10774513,
+  author={Klaassen, Christoph and Thoma, Max and Steindl, Gernot and Amiri, Amirali and Kasper, Lukas and Hofmann, René},
+  booktitle={2024 IEEE 22nd International Conference on Industrial Informatics (INDIN)}, 
+  title={Semantic Annotation of System Models for Generating RDF Runtime Models}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-6},
+  keywords={Runtime;Annotations;Semantics;Ontologies;Resource description framework;Reliability;Informatics;Thermal energy;Energy storage;Energy Systems Modeling;SysML v2;Semantic Web;Ontologies;Model Transformation},
+  doi={10.1109/INDIN58382.2024.10774513}}
+```
